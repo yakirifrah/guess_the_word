@@ -16,7 +16,6 @@ export const generateRandomWord = (dictionary = {}) => {
   const randomWordIndex = Math.floor(Math.random() * copyWords.length);
   const randomWord = copyWords[randomWordIndex];
 
-
   return {
     type: actionTypes.GENERATE_RANDOM_WORD,
     payload: {

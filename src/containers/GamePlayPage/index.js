@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { generateRandomWord } from '../../store/actions';
-import { Header,Button } from '../../components/Shared';
+import { Header, Button } from '../../components/Shared';
 import dictionary from '../../lib/dictionary';
 import { getIndexOfMissingLetters } from '../../helpers';
 import { Input } from '../../components';
@@ -13,7 +13,9 @@ const GamePlayPage = () => {
   const { category } = useSelector((state) => state.app);
   const [lettersArray, setLettersArray] = useState([]);
   const inputEl = useRef();
-
+  const btnRef = useRef();
+  const wordGuess = useRef([]);
+  wordGuess.current = lettersArray;
   useEffect(() => {
     const {
       payload: { word },
@@ -26,24 +28,32 @@ const GamePlayPage = () => {
     if (target.value.match(RegExp('^[a-zA-Z]$'))) {
       focusNextChar(target);
     } else {
-      target.value = '';
+      target.value = null;
     }
+    const copyWordGuess = [...wordGuess.current];
+    copyWordGuess[index] =  target.value === '' ? null: target.value;
+    wordGuess.current = copyWordGuess;
+    checkIfGuessAllLetters();
   };
+
   const focusNextChar = (target) => {
     let nextEl = target.nextElementSibling;
     while (nextEl !== null) {
       if (nextEl.localName === 'input') break;
-      else{
+      else {
         nextEl = nextEl.nextElementSibling;
       }
     }
-    if (nextEl!== null){
+    if (nextEl !== null) {
       nextEl.focus();
     }
   };
-const handleOnClick=(e)=>{
 
-}
+  const handleOnClick = (e) => {};
+
+  const checkIfGuessAllLetters = () => {
+    btnRef.current.disabled = wordGuess.current.includes(null);
+  };
   return (
     <>
       <Header title={category} />
@@ -71,12 +81,7 @@ const handleOnClick=(e)=>{
           })}
         </div>
         <div className="check-guess">
-          <Button
-              label="Check the guess"
-              handleOnClick={handleOnClick}
-
-
-          />
+          <Button label="Check the guess" handleOnClick={handleOnClick} disableBtn={true} ref={btnRef} />
         </div>
       </div>
     </>
