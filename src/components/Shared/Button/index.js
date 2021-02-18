@@ -1,12 +1,12 @@
 import { forwardRef } from 'react';
+import './style.scss';
 
-const Button = forwardRef(({ label, className, handleOnClick, disableBtn = null }, btnRef) => (
+const Button = forwardRef(({ label, className, handleOnClick }, btnRef) => (
   <>
-    <button className={className} onClick={handleOnClick} disabled={disableBtn} ref={btnRef}>
+    <button className={className} onClick={handleOnClick} ref={btnRef}>
       {label}
     </button>
   </>
 ));
 
 export default Button;
-

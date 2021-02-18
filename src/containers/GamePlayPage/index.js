@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { generateRandomWord } from '../../store/actions';
+
+import { generateRandomWord, checkIfPlayerGuessTheWord } from '../../store/actions';
 import { Header, Button } from '../../components/Shared';
 import dictionary from '../../lib/dictionary';
 import { getIndexOfMissingLetters } from '../../helpers';
@@ -10,19 +11,21 @@ import './style.scss';
 
 const GamePlayPage = () => {
   const dispatch = useDispatch();
-  const { category } = useSelector((state) => state.app);
+  const { category, word, lifePlayerPoints, victoryPlayerPoints } = useSelector((state) => state.app);
   const [lettersArray, setLettersArray] = useState([]);
   const inputEl = useRef();
   const btnRef = useRef();
   const wordGuess = useRef([]);
   wordGuess.current = lettersArray;
+
   useEffect(() => {
     const {
       payload: { word },
     } = dispatch(generateRandomWord(dictionary));
     const arrIndexOfMissingLetters = getIndexOfMissingLetters(word);
+    btnRef.current.disabled = true;
     setLettersArray(Array.from(word).map((word, index) => (arrIndexOfMissingLetters.includes(index) ? null : word)));
-  }, [dispatch]);
+  }, [victoryPlayerPoints, lifePlayerPoints, dispatch]);
 
   const handleChange = ({ target }, index) => {
     if (target.value.match(RegExp('^[a-zA-Z]$'))) {
@@ -31,7 +34,7 @@ const GamePlayPage = () => {
       target.value = null;
     }
     const copyWordGuess = [...wordGuess.current];
-    copyWordGuess[index] =  target.value === '' ? null: target.value;
+    copyWordGuess[index] = target.value === '' ? null : target.value;
     wordGuess.current = copyWordGuess;
     checkIfGuessAllLetters();
   };
@@ -49,11 +52,17 @@ const GamePlayPage = () => {
     }
   };
 
-  const handleOnClick = (e) => {};
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    const playerGuessWord = wordGuess.current.join('');
+    dispatch(checkIfPlayerGuessTheWord(playerGuessWord, word));
+  };
 
   const checkIfGuessAllLetters = () => {
     btnRef.current.disabled = wordGuess.current.includes(null);
+    if (!wordGuess.current.includes(null)) btnRef.current.focus();
   };
+
   return (
     <>
       <Header title={category} />
@@ -74,15 +83,26 @@ const GamePlayPage = () => {
                   style={`single__character`}
                   handleChange={handleChange}
                   index={index}
-                  ref={inputEl}
                 />
               );
             }
           })}
         </div>
         <div className="check-guess">
-          <Button label="Check the guess" handleOnClick={handleOnClick} disableBtn={true} ref={btnRef} />
+          <Button label="Check the guess" handleOnClick={handleOnClick} ref={btnRef} className="check-guess__btn" />
         </div>
+        <footer>
+          <div className="GuessesLeft">
+            <div className="GuessesLeft__header">
+              <h6>Life: {lifePlayerPoints}</h6>
+            </div>
+          </div>
+          <div className="VictoryPoint">
+            <div className="VictoryPoint__header">
+              <h6>points: {victoryPlayerPoints}</h6>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );
