@@ -1,0 +1,12 @@
+.Game {
+
+
+  &__guess-word{
+    display:flex;
+    align-items:baseline;
+    justify-content:center;
+  }
+  .letter {
+    font-size:88rem;
+  }
+}
