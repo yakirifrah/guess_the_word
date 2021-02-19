@@ -1,15 +1,15 @@
-// import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import './style.scss';
 
-const Input = ({ type, style, handleChange, index = null ,value}) => {
+const Input = forwardRef(({ type, style, handleChange, index = null }, ref) => {
   return (
     <input
       className={`Input ${style} u-mr-4`}
       type={type}
       maxLength="1"
       onChange={(e) => handleChange(e, index)}
-      value={value}
+      ref={ref}
     />
   );
-}
+});
 export default Input;

@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { generateRandomWord, checkIfPlayerGuessTheWord } from '../../store/actions';
 import { Header, Button } from '../../components/Shared';
 import dictionary from '../../lib/dictionary';
-import { getIndexOfMissingLetters } from '../../helpers';
+import { getIndexOfMissingLetters, generateKey } from '../../helpers';
 import { Input } from '../../components';
 
 import './style.scss';
@@ -13,9 +14,9 @@ const GamePlayPage = () => {
   const dispatch = useDispatch();
   const { category, word, lifePlayerPoints, victoryPlayerPoints } = useSelector((state) => state.app);
   const [lettersArray, setLettersArray] = useState([]);
-  const inputEl = useRef();
   const btnRef = useRef();
   const wordGuess = useRef([]);
+  const history = useHistory();
   wordGuess.current = lettersArray;
 
   useEffect(() => {
@@ -25,7 +26,14 @@ const GamePlayPage = () => {
     const arrIndexOfMissingLetters = getIndexOfMissingLetters(word);
     btnRef.current.disabled = true;
     setLettersArray(Array.from(word).map((word, index) => (arrIndexOfMissingLetters.includes(index) ? null : word)));
-  }, [victoryPlayerPoints, lifePlayerPoints, dispatch]);
+  }, [victoryPlayerPoints, dispatch]);
+
+  useEffect(() => {
+    console.log({ lifePlayerPoints });
+    if (lifePlayerPoints === 0) {
+      history.push('/game-over');
+    }
+  }, [history, lifePlayerPoints]);
 
   const handleChange = ({ target }, index) => {
     if (target.value.match(RegExp('^[a-zA-Z]$'))) {
@@ -71,14 +79,14 @@ const GamePlayPage = () => {
           {lettersArray.map((letter, index) => {
             if (letter) {
               return (
-                <h2 className="letter u-mr-4" key={index}>
+                <h2 className="letter u-mr-4" key={generateKey('h2')}>
                   {letter}
                 </h2>
               );
             } else {
               return (
                 <Input
-                  key={index}
+                  key={generateKey('input')}
                   type="text"
                   style={`single__character`}
                   handleChange={handleChange}
@@ -102,6 +110,7 @@ const GamePlayPage = () => {
               <h6>points: {victoryPlayerPoints}</h6>
             </div>
           </div>
+          <h1>Test: {word}</h1>
         </footer>
       </div>
     </>

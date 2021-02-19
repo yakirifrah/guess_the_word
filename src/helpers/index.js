@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 export function getIndexOfMissingLetters(word) {
   let arrIndexOfMissingLetters = [];
 
@@ -10,4 +11,7 @@ export function getIndexOfMissingLetters(word) {
     }
   }
   return arrIndexOfMissingLetters;
+}
+export function generateKey(pre) {
+  return `${pre}-${uuidv4()}`;
 }

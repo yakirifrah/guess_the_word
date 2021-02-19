@@ -9,7 +9,7 @@ const initialState = {
   msg: '',
   lifePlayerPoints: 3,
   victoryPlayerPoints: 0,
-  IsPlayerGuessCorrect: false,
+  isPlayerGuessCorrect: false,
 };
 
 const generateRandomWord = (state, action) => {
@@ -19,7 +19,7 @@ const generateRandomWord = (state, action) => {
 };
 
 const checkIfPlayerGuessTheWord = (state, action) => {
-  if (action.payload.IsPlayerGuessCorrect) {
+  if (action.payload.isPlayerGuessCorrect) {
     return updateObject(state, {
       victoryPlayerPoints: state.victoryPlayerPoints + 1,
     });

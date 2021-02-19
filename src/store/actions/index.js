@@ -27,7 +27,7 @@ export const checkIfPlayerGuessTheWord = (playerGuessWord, word) => {
   return {
     type: actionTypes.CHECK_GUESS_WORD,
     payload: {
-      IsPlayerGuessCorrect: playerGuessWord.toLowerCase() === word.toLowerCase(),
+      isPlayerGuessCorrect: playerGuessWord.toLowerCase() === word.toLowerCase(),
     },
   };
 };
