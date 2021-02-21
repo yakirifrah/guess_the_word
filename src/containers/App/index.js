@@ -9,7 +9,7 @@ import * as routes from '../../constants/routes';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path={routes.HOME} component={IntroPage} />
           <Route path={routes.GAME_PAGE} component={GamePlayPage} />
