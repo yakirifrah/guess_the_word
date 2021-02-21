@@ -1,3 +1,4 @@
-import Input from './Input';
+import { Form, Button, Input, Header } from './Shared';
+import Table from './Table';
 
-export { Input };
+export { Form, Button, Input, Header, Table };

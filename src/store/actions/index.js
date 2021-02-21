@@ -31,3 +31,21 @@ export const checkIfPlayerGuessTheWord = (playerGuessWord, word) => {
     },
   };
 };
+
+export const insertDataToTableScore = ({ name, phoneNumber, score }, index = -1) => {
+  if (index !== -1) {
+    return {
+      type: actionTypes.SAVE_DATA_SCORE_PLAYER,
+      payload: {
+        index,
+        scorePlayer: { name, phoneNumber, score },
+      },
+    };
+  }
+  return {
+    type: actionTypes.SAVE_DATA_SCORE_PLAYER,
+    payload: {
+      scorePlayer: { name, phoneNumber, score },
+    },
+  };
+};

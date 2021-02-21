@@ -6,7 +6,7 @@ import { generateRandomWord, checkIfPlayerGuessTheWord } from '../../store/actio
 import { Header, Button } from '../../components/Shared';
 import dictionary from '../../lib/dictionary';
 import { getIndexOfMissingLetters, generateKey } from '../../helpers';
-import { Input } from '../../components';
+import { Input } from '../../components/Shared/Form';
 
 import './style.scss';
 
@@ -29,7 +29,6 @@ const GamePlayPage = () => {
   }, [victoryPlayerPoints, dispatch]);
 
   useEffect(() => {
-    console.log({ lifePlayerPoints });
     if (lifePlayerPoints === 0) {
       history.push('/game-over');
     }
@@ -91,23 +90,25 @@ const GamePlayPage = () => {
                   style={`single__character`}
                   handleChange={handleChange}
                   index={index}
+                  name="letter"
+                  maxLength={'1'}
                 />
               );
             }
           })}
         </div>
-        <div className="check-guess">
-          <Button label="Check the guess" handleOnClick={handleOnClick} ref={btnRef} className="check-guess__btn" />
+        <div className="check_guess">
+          <Button label="Check the guess" handleOnClick={handleOnClick} ref={btnRef} className="check_guess" />
         </div>
-        <footer>
+        <footer className="Footer">
           <div className="GuessesLeft">
             <div className="GuessesLeft__header">
-              <h6>Life: {lifePlayerPoints}</h6>
+              <h6 className="text">Life: {lifePlayerPoints}</h6>
             </div>
           </div>
           <div className="VictoryPoint">
             <div className="VictoryPoint__header">
-              <h6>points: {victoryPlayerPoints}</h6>
+              <h6 className="text">points: {victoryPlayerPoints}</h6>
             </div>
           </div>
           <h1>Test: {word}</h1>

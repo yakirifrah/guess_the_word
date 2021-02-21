@@ -1,0 +1,31 @@
+@import '../../styles/abstract/variables';
+table {
+  background-color:$lightGrey-1;
+  border-spacing: 0;
+  border: 1px solid black;
+  margin:auto;
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05);
+  }
+
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+  }
+
+
+  th,
+  td {
+    margin: 0;
+    padding: 12.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+}

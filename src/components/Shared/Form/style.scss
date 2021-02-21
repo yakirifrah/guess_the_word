@@ -1,0 +1,70 @@
+.Form{
+  max-width: 500px;
+  margin: 0 auto;
+  display:flex;
+  flex-direction:column;
+  background: #0e101c;
+}
+
+.Input{
+  &.single__character{
+    justify-content: space-between;
+    width: 45px;
+    height: 45px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 34px;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial sans-serif;
+  }
+  &.submit{
+    padding: 9px;
+    -webkit-appearance: none;
+    &:hover{
+      background: #bf1650;
+
+    }
+    &:active{
+      transition: 0.3s all;
+      transform: translateY(3px);
+      border: 1px solid transparent;
+      opacity: 0.8;
+    }
+    &:disabled{
+      opacity: 0.4;
+    }
+  }
+  &.form{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+}
+.error__input{
+  color: #bf1650;
+  &:before{
+    display: inline;
+    content: "⚠ ";
+  }
+
+}
+
+
+
+
+label {
+  line-height: 2;
+  text-align: left;
+  display: block;
+  margin-bottom: 4px;
+  margin-top: 7px;
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}

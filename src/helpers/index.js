@@ -12,6 +12,7 @@ export function getIndexOfMissingLetters(word) {
   }
   return arrIndexOfMissingLetters;
 }
+
 export function generateKey(pre) {
   return `${pre}-${uuidv4()}`;
 }

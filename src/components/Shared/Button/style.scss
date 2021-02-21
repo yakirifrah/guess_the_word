@@ -1,6 +1,42 @@
-.check-guess__btn{
-  background:red;
-  border-radius: 8px;
-  color: white;
+.Button {
+  .btn{
+    padding:9px;
+    font-family: "Helvetica Neue", Helvetica, Arial, serif;
+    font-weight:bolder;
+    border-radius:4%;
+  }
 
+  .check_guess,.play_again{
+    background:#27ae60;
+
+    &:hover:enabled{
+      background:#2ecc71;
+    }
+
+    &:active{
+      transition: 0.3s all;
+      transform: translateY(3px);
+      border: 1px solid transparent;
+      opacity: 0.8;
+    }
+
+    &:disabled{
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.start_new_game {
+  background:#bdc3c7;
+
+  &:hover{
+  background:#ecf0f1;
+  }
+  &:active{
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
 }
