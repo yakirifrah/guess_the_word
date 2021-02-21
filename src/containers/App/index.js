@@ -1,5 +1,5 @@
 import './style.scss';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import IntroPage from '../IntroPage';
 import GamePlayPage from '../GamePlayPage';
@@ -9,7 +9,7 @@ import * as routes from '../../constants/routes';
 function App() {
   return (
     <div className="App">
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router  basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path={routes.HOME} component={IntroPage} />
           <Route path={routes.GAME_PAGE} component={GamePlayPage} />
