@@ -135,7 +135,6 @@ const GamePlayPage = ({ location }) => {
               <h6 className="text">points: {victoryPlayerPoints}</h6>
             </div>
           </div>
-          <h1>Test: {word}</h1>
         </footer>
       </div>
     </>
