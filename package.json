@@ -1,5 +1,4 @@
 {
-  "homepage": "http://yakirifrah.github.io/guess_the_word",
   "name": "guess_the_word",
   "version": "0.1.0",
   "private": true,
@@ -22,8 +21,6 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -49,7 +46,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0",
     "uuid": "^8.3.2"
   }
 }
