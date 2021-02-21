@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {resetLifePlayer} from '../../store/actions';
+import { resetLifePlayer } from '../../store/actions';
 import { Table, Header, Button } from '../../components';
 import './style.scss';
 
 const ScoreTablePage = () => {
   const { scoreTable } = useSelector((state) => state.app);
-const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const columns = useMemo(
     () => [
@@ -27,8 +27,8 @@ const dispatch=useDispatch();
     [],
   );
   const handleOnClick = () => {
-      dispatch(resetLifePlayer());
-   return history.push('/game', { from: 'TableScorePage' });
+    dispatch(resetLifePlayer());
+    return history.push('/game', { from: 'TableScorePage' });
   };
 
   return (

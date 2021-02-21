@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { generateRandomWord, checkIfPlayerGuessTheWord } from '../../store/actions';
+import { generateRandomWord, checkIfPlayerGuessTheWord, decreaseLifePlayer } from '../../store/actions';
 import { Header, Button } from '../../components/Shared';
 import { getIndexOfMissingLetters, generateKey } from '../../helpers';
 import { Input } from '../../components/Shared/Form';
@@ -16,7 +16,7 @@ const GamePlayPage = ({ location }) => {
   const dispatch = useDispatch();
   const { category, word, lifePlayerPoints, victoryPlayerPoints } = useSelector((state) => state.app);
   const [lettersArray, setLettersArray] = useState([]);
-  const [resetTimer,setResetTimer]=useState(0);
+  const [resetTimer, setResetTimer] = useState(0);
   const btnRef = useRef();
   const wordGuess = useRef([]);
   const history = useHistory();
@@ -29,7 +29,7 @@ const GamePlayPage = ({ location }) => {
     const arrIndexOfMissingLetters = getIndexOfMissingLetters(word);
     btnRef.current.disabled = true;
     setLettersArray(Array.from(word).map((word, index) => (arrIndexOfMissingLetters.includes(index) ? null : word)));
-    setResetTimer(prevState=>prevState+1);
+    setResetTimer((prevState) => prevState + 1);
   }, [victoryPlayerPoints, dispatch]);
 
   useEffect(() => {
@@ -107,19 +107,20 @@ const GamePlayPage = ({ location }) => {
         <footer className="Footer">
           <div className="Counter_timer">
             <CountdownCircleTimer
-                isPlaying
-                key={resetTimer}
-                duration={TIMER_FOR_EACH_LEVEL}
-                colors={[
-                  ['#004777', 0.33],
-                  ['#F7B801', 0.33],
-                  ['#A30000', 0.33],
-
-                ]}
-                size={90}
-                onComplete={()=>{
-                  history.push('/game-over');
-                }}
+              isPlaying
+              key={resetTimer}
+              duration={TIMER_FOR_EACH_LEVEL}
+              colors={[
+                ['#004777', 0.33],
+                ['#F7B801', 0.33],
+                ['#A30000', 0.33],
+              ]}
+              size={90}
+              onComplete={() => {
+                dispatch(decreaseLifePlayer());
+                setResetTimer(prev=>prev+1);
+                // history.push('/game-over');
+              }}
             >
               {({ remainingTime }) => remainingTime}
             </CountdownCircleTimer>

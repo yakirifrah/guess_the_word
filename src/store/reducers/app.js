@@ -53,11 +53,16 @@ const insertScorePlayerIntoScoreTable = (state, action) => {
   });
 };
 
-const resetLifePlayer=(state,action)=>{
-  return updateObject(state,{
-    lifePlayerPoints:LIFE_PLAYER_POINTS
-  })
-}
+const resetLifePlayer = (state, action) => {
+  return updateObject(state, {
+    lifePlayerPoints: LIFE_PLAYER_POINTS,
+  });
+};
+const decreaseLifePlayer = (state, action) => {
+  return updateObject(state, {
+    lifePlayerPoints: state.lifePlayerPoints - 1,
+  });
+};
 
 export function appReducer(state = initialState, action) {
   switch (action.type) {
@@ -69,6 +74,8 @@ export function appReducer(state = initialState, action) {
       return insertScorePlayerIntoScoreTable(state, action);
     case actionTypes.RESET_LIFE_PLAYER:
       return resetLifePlayer(state, action);
+    case actionTypes.DECREASE_LIFE_PLAYER:
+      return decreaseLifePlayer(state, action);
     default:
       return state;
   }

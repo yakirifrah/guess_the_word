@@ -50,6 +50,9 @@ export const insertDataToTableScore = ({ name, phoneNumber, score }, index = -1)
   };
 };
 
-export const resetLifePlayer=()=>({
+export const resetLifePlayer = () => ({
   type: actionTypes.RESET_LIFE_PLAYER,
-})
+});
+export const decreaseLifePlayer = () => ({
+  type: actionTypes.DECREASE_LIFE_PLAYER,
+});
