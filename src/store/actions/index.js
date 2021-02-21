@@ -49,3 +49,7 @@ export const insertDataToTableScore = ({ name, phoneNumber, score }, index = -1)
     },
   };
 };
+
+export const resetLifePlayer=()=>({
+  type: actionTypes.RESET_LIFE_PLAYER,
+})

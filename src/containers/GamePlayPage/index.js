@@ -1,19 +1,22 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import { generateRandomWord, checkIfPlayerGuessTheWord } from '../../store/actions';
 import { Header, Button } from '../../components/Shared';
-import dictionary from '../../lib/dictionary';
 import { getIndexOfMissingLetters, generateKey } from '../../helpers';
 import { Input } from '../../components/Shared/Form';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+
+import { TIMER_FOR_EACH_LEVEL } from '../../constants/game';
+import dictionary from '../../lib/dictionary';
 
 import './style.scss';
 
-const GamePlayPage = () => {
+const GamePlayPage = ({ location }) => {
   const dispatch = useDispatch();
   const { category, word, lifePlayerPoints, victoryPlayerPoints } = useSelector((state) => state.app);
   const [lettersArray, setLettersArray] = useState([]);
+  const [resetTimer,setResetTimer]=useState(0);
   const btnRef = useRef();
   const wordGuess = useRef([]);
   const history = useHistory();
@@ -26,11 +29,12 @@ const GamePlayPage = () => {
     const arrIndexOfMissingLetters = getIndexOfMissingLetters(word);
     btnRef.current.disabled = true;
     setLettersArray(Array.from(word).map((word, index) => (arrIndexOfMissingLetters.includes(index) ? null : word)));
+    setResetTimer(prevState=>prevState+1);
   }, [victoryPlayerPoints, dispatch]);
 
   useEffect(() => {
     if (lifePlayerPoints === 0) {
-      history.push('/game-over');
+      return history.push('/game-over');
     }
   }, [history, lifePlayerPoints]);
 
@@ -101,6 +105,26 @@ const GamePlayPage = () => {
           <Button label="Check the guess" handleOnClick={handleOnClick} ref={btnRef} className="check_guess" />
         </div>
         <footer className="Footer">
+          <div className="Counter_timer">
+            <CountdownCircleTimer
+                isPlaying
+                key={resetTimer}
+                duration={TIMER_FOR_EACH_LEVEL}
+                colors={[
+                  ['#004777', 0.33],
+                  ['#F7B801', 0.33],
+                  ['#A30000', 0.33],
+
+                ]}
+                size={90}
+                onComplete={()=>{
+                  history.push('/game-over');
+                }}
+            >
+              {({ remainingTime }) => remainingTime}
+            </CountdownCircleTimer>
+          </div>
+
           <div className="GuessesLeft">
             <div className="GuessesLeft__header">
               <h6 className="text">Life: {lifePlayerPoints}</h6>

@@ -16,7 +16,7 @@ const IntroPage = () => {
   const history = useHistory();
   const startNewGame = (e) => {
     e.preventDefault();
-    history.push('/game');
+    history.push('/game', { from: 'IntroPage' });
   };
   return (
     <>

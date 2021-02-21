@@ -19,13 +19,11 @@ const GameOverPage = () => {
     }
   }, [history, requestToInsertScoreTableFulfilled]);
   const onSubmit = (data) => {
-    console.log({ data });
-    if (victoryPlayerPoints === 0) return;
+    if (victoryPlayerPoints === 0) return history.push('/score-table');
     data = { ...data, score: victoryPlayerPoints };
     const { name, phoneNumber, score: myCurrentScore } = data;
     if (!scoreTable.length) return dispatch(insertDataToTableScore(data));
     const index = scoreTable.findIndex((obj) => obj.name === name && obj.phoneNumber === phoneNumber);
-    console.log({ index });
     if (index !== -1) {
       const { score } = scoreTable[index];
       if (myCurrentScore > score) {

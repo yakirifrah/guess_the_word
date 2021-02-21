@@ -53,6 +53,12 @@ const insertScorePlayerIntoScoreTable = (state, action) => {
   });
 };
 
+const resetLifePlayer=(state,action)=>{
+  return updateObject(state,{
+    lifePlayerPoints:LIFE_PLAYER_POINTS
+  })
+}
+
 export function appReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.GENERATE_RANDOM_WORD:
@@ -61,6 +67,8 @@ export function appReducer(state = initialState, action) {
       return checkIfPlayerGuessTheWord(state, action);
     case actionTypes.SAVE_DATA_SCORE_PLAYER:
       return insertScorePlayerIntoScoreTable(state, action);
+    case actionTypes.RESET_LIFE_PLAYER:
+      return resetLifePlayer(state, action);
     default:
       return state;
   }
